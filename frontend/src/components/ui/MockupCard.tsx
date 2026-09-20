@@ -1,8 +1,47 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Scissors } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+
+const ChromaKeyImage = ({ src, className }: { src: string, className: string }) => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    if (!ctx) return;
+    
+    const img = new Image();
+    img.src = src;
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
+      
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imageData.data;
+      
+      for (let i = 0; i < data.length; i += 4) {
+        const r = data[i];
+        const g = data[i + 1];
+        const b = data[i + 2];
+        
+        // Remove blue background pixels
+        if (b > r * 1.1 + 20 && b > g * 1.1 + 20 && b > 80) {
+          data[i + 3] = 0; // Set alpha to 0
+        }
+      }
+      ctx.putImageData(imageData, 0, 0);
+    };
+  }, [src]);
+
+  return <canvas ref={canvasRef} className={className} />;
+};
 
 export const MockupCard = () => {
+  const [isBgRemoved, setIsBgRemoved] = useState(false);
+
   return (
     <motion.div 
       initial={{ opacity: 0, y: 40 }}
@@ -11,21 +50,56 @@ export const MockupCard = () => {
       className="w-full max-w-4xl relative mt-4"
     >
       
-      <div className="relative rounded-2xl border border-white/10 overflow-hidden aspect-16/10 flex items-center justify-center">
-        {/* Background Cover Image */}
-        <img src="/Assets/cover.jpg" alt="Cover" className="absolute inset-0 w-full h-full object-cover" />
+      <div className="relative rounded-2xl border border-white/10 overflow-hidden aspect-16/10 flex items-center justify-center group bg-black/20">
+        
+        {/* Transparent Checkerboard Background (shows when bg is removed) */}
+        <div className="absolute inset-0 bg-checkerboard opacity-20"></div>
+
+        {/* Background Cover Image (Always visible) */}
+        <img 
+          src="/Assets/cover.jpg" 
+          alt="Cover" 
+          className="absolute inset-0 w-full h-full object-cover" 
+        />
         
         {/* Inner Avatar/UI Image */}
-        <div className="relative z-10 w-[90%] h-[90%] flex items-center justify-center">
-          <img src="/Assets/avater.png" alt="App UI" className="w-full h-full object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]" />
+        <div className="relative z-10 w-[90%] h-[90%] flex items-center justify-center pointer-events-none">
+          {/* Canvas with background removed via chroma key */}
+          <ChromaKeyImage 
+            src="/Assets/avater.png" 
+            className="absolute w-full h-full object-contain" 
+          />
+          
+          {/* Original Image that fades out smoothly */}
+          <motion.img 
+            src="/Assets/avater.png" 
+            alt="App UI" 
+            className="absolute w-full h-full object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+            animate={{ opacity: isBgRemoved ? 0 : 1 }}
+            transition={{ duration: 0.8, ease: "easeInOut" }}
+          />
+        </div>
+
+        {/* Hover Action Overlay */}
+        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 flex items-center justify-center pointer-events-none">
+          <button 
+            onClick={() => setIsBgRemoved(!isBgRemoved)}
+            className="btn-theme-inverse px-4 py-2 text-sm rounded-full font-medium shadow-2xl hover:opacity-80 transition-opacity flex items-center gap-2 pointer-events-auto"
+          >
+            <Scissors className="w-4 h-4" /> 
+            {isBgRemoved ? 'Restore BG' : 'Remove BG'}
+          </button>
         </div>
       </div>
       
       <div className="flex justify-between items-center mt-6 text-foreground/50 text-sm px-2">
         <span>This is the whole image. Try it.</span>
-        <Link to="/remove" className="flex items-center gap-2 btn-theme-inverse hover:opacity-90 transition-opacity cursor-pointer px-4 py-2 rounded-full font-medium">
-          <Scissors className="w-4 h-4" /> Remove BG
-        </Link>
+        <button 
+          onClick={() => setIsBgRemoved(!isBgRemoved)}
+          className="flex items-center gap-2 btn-theme-inverse hover:opacity-80 transition-opacity cursor-pointer px-4 py-2 rounded-full font-medium"
+        >
+          <Scissors className="w-4 h-4" /> {isBgRemoved ? 'Restore BG' : 'Remove BG'}
+        </button>
       </div>
     </motion.div>
   );
