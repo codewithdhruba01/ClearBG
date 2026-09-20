@@ -26,18 +26,18 @@ export const ResultActions = ({ processedImage, onReset }: ResultActionsProps) =
     >
       <button 
         onClick={handleDownload}
-        className="w-full sm:w-auto flex items-center justify-center gap-2 btn-theme-inverse hover:opacity-80 transition-opacity cursor-pointer px-8 py-3 rounded-full font-medium shadow-2xl"
+        className="w-full sm:w-auto flex items-center justify-center gap-2 btn-theme-inverse hover:opacity-80 transition-opacity cursor-pointer px-6 py-2 text-sm rounded-full font-medium shadow-2xl"
       >
-        <Download className="w-5 h-5" />
+        <Download className="w-4 h-4" />
         Download PNG
       </button>
       
       <button 
         onClick={onReset}
-        className="w-full sm:w-auto flex items-center justify-center gap-2 btn-theme-inverse hover:opacity-80 transition-opacity cursor-pointer px-8 py-3 rounded-full font-medium"
+        className="w-full sm:w-auto flex items-center justify-center gap-2 btn-theme-inverse hover:opacity-80 transition-opacity cursor-pointer px-6 py-2 text-sm rounded-full font-medium"
       >
-        <RefreshCw className="w-5 h-5" />
-        Process Another Image
+        <RefreshCw className="w-4 h-4" />
+        Another Image
       </button>
     </motion.div>
   );
