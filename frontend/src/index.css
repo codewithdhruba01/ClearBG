@@ -1,0 +1,128 @@
+@import "tailwindcss";
+@plugin "tailwindcss-animate";
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+}
+
+@layer base {
+  :root {
+    --background: #ffffff;
+    --foreground: #0f172a;
+    
+    --card: rgba(255, 255, 255, 0.7);
+    --card-foreground: #0f172a;
+    
+    --primary: #3b82f6;
+    --primary-foreground: #ffffff;
+    
+    --accent: #f1f5f9;
+    --accent-foreground: #0f172a;
+    
+    --border: rgba(226, 232, 240, 0.5);
+    --input: #e2e8f0;
+    --ring: #3b82f6;
+    
+    --radius: 1rem;
+    
+    --glass-border: rgba(255, 255, 255, 0.4);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+    --glass-bg: rgba(255, 255, 255, 0.65);
+    
+    --checkerboard: #f0f0f0;
+    --checkerboard-alt: #ffffff;
+  }
+
+  .dark {
+    --background: #020817;
+    --foreground: #f8fafc;
+    
+    --card: rgba(15, 23, 42, 0.6);
+    --card-foreground: #f8fafc;
+    
+    --primary: #3b82f6;
+    --primary-foreground: #ffffff;
+    
+    --accent: #1e293b;
+    --accent-foreground: #f8fafc;
+    
+    --border: rgba(30, 41, 59, 0.6);
+    --input: #1e293b;
+    --ring: #3b82f6;
+    
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    --glass-bg: rgba(15, 23, 42, 0.55);
+    
+    --checkerboard: #1e293b;
+    --checkerboard-alt: #0f172a;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    background-image: 
+      radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.08), transparent 25%),
+      radial-gradient(circle at 85% 30%, rgba(6, 182, 212, 0.08), transparent 25%);
+    background-attachment: fixed;
+  }
+  
+  .dark body {
+    background-image: 
+      radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.12), transparent 25%),
+      radial-gradient(circle at 85% 30%, rgba(6, 182, 212, 0.12), transparent 25%);
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+  }
+  
+  .glass-hover {
+    transition: all 0.3s ease;
+  }
+  
+  .glass-hover:hover {
+    background: color-mix(in srgb, var(--glass-bg) 95%, var(--primary) 5%);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.1);
+  }
+
+  .dark .glass-hover:hover {
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
+  }
+
+  .bg-checkerboard {
+    background-image: 
+      linear-gradient(45deg, var(--checkerboard) 25%, transparent 25%), 
+      linear-gradient(-45deg, var(--checkerboard) 25%, transparent 25%), 
+      linear-gradient(45deg, transparent 75%, var(--checkerboard) 75%), 
+      linear-gradient(-45deg, transparent 75%, var(--checkerboard) 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    background-color: var(--checkerboard-alt);
+  }
+}
