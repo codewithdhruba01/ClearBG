@@ -32,7 +32,7 @@ export const Hero = ({
             transition={{ duration: 0.5 }}
             className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-foreground tracking-tight mb-4"
           >
-            Remove <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-cyan-500">Backgrounds</span> in Seconds
+            Remove <span className="text-primary">Backgrounds</span> in Seconds
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}

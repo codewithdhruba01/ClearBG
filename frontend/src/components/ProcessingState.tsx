@@ -39,7 +39,7 @@ export const ProcessingState = ({ originalImage }: ProcessingStateProps) => {
         {/* Progress bar animation */}
         <div className="w-64 h-2 bg-foreground/10 rounded-full mt-8 overflow-hidden">
           <motion.div 
-            className="h-full bg-linear-to-r from-primary to-cyan-400 rounded-full"
+            className="h-full bg-primary rounded-full"
             initial={{ width: "0%" }}
             animate={{ width: "100%" }}
             transition={{ duration: 3, ease: "easeInOut", repeat: Infinity }}
