@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { Scissors } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 
