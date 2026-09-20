@@ -47,7 +47,7 @@ export const MockupCard = () => {
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, delay: 0.4 }}
-      className="w-full max-w-4xl relative mt-4"
+      className="w-full max-w-2xl relative mt-4"
     >
       
       <div className="relative rounded-2xl border border-white/10 overflow-hidden aspect-16/10 flex items-center justify-center group bg-black/20">
