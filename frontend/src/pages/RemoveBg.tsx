@@ -16,24 +16,24 @@ export const RemoveBg = () => {
   } = useBackgroundRemoval();
 
   return (
-    <div className="relative pt-32 pb-20 sm:pt-40 sm:pb-24 overflow-hidden min-h-screen flex flex-col justify-center bg-background">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <div className="text-center max-w-3xl mx-auto mb-12">
+    <div className="relative pt-24 pb-12 sm:pt-32 sm:pb-16 overflow-hidden min-h-screen flex flex-col bg-background">
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+        <div className="mb-12">
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-3xl sm:text-4xl font-bold text-foreground mb-4"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-3 tracking-tight"
           >
-            Background Removal Tool
+            Remove background
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-foreground/70"
+            className="text-foreground/50 text-base"
           >
-            Upload your image below to get started.
+            Drop an image. We will automatically remove the background and give you a clean cutout.
           </motion.p>
         </div>
 
@@ -41,7 +41,7 @@ export const RemoveBg = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="max-w-4xl mx-auto w-full"
+          className="w-full"
         >
           {status === 'idle' || status === 'error' ? (
             <div className="space-y-4">
