@@ -14,7 +14,7 @@ export const removeBackground = async (req: Request, res: Response, next: NextFu
   try {
     const processedImageBuffer = await backgroundRemovalService.processImage(tempFilePath);
     
-    // Convert to base64 for easy consumption by the frontend
+    // Convert to base64 for easy consumption by the client
     const base64Image = processedImageBuffer.toString('base64');
     const dataUrl = `data:image/png;base64,${base64Image}`;
 
