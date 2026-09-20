@@ -115,4 +115,13 @@
     background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
     background-color: var(--checkerboard-alt);
   }
+
+  .btn-theme-inverse {
+    background-color: #000000;
+    color: #ffffff;
+  }
+  .dark .btn-theme-inverse {
+    background-color: #ffffff;
+    color: #000000;
+  }
 }

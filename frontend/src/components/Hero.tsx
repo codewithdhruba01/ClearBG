@@ -5,7 +5,7 @@ import { MockupCard } from './ui/MockupCard';
 export const Hero = () => {
   return (
     <div className="relative pt-32 pb-20 sm:pt-40 sm:pb-24 overflow-hidden min-h-screen flex flex-col items-center bg-background">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full flex flex-col items-center">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full flex flex-col items-center">
         <div className="text-center max-w-2xl mx-auto mb-10">
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
@@ -30,7 +30,7 @@ export const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <Link to="/remove" className="inline-flex items-center justify-center bg-foreground text-background hover:opacity-90 px-6 py-3 rounded-full font-medium text-sm transition-opacity">
+            <Link to="/remove" className="inline-flex items-center justify-center btn-theme-inverse hover:opacity-90 px-8 py-3 rounded-full font-medium text-sm transition-opacity">
               Make it transparent
             </Link>
           </motion.div>

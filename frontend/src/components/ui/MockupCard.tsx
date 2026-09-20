@@ -23,8 +23,8 @@ export const MockupCard = () => {
       
       <div className="flex justify-between items-center mt-6 text-foreground/50 text-sm px-2">
         <span>This is the whole image. Try it.</span>
-        <Link to="/remove" className="flex items-center gap-2 hover:text-foreground transition-colors cursor-pointer border border-white/10 px-4 py-2 rounded-full hover:bg-white/5">
-          <Scissors className="w-4 h-4" /> Split it
+        <Link to="/remove" className="flex items-center gap-2 btn-theme-inverse hover:opacity-90 transition-opacity cursor-pointer px-4 py-2 rounded-full font-medium">
+          <Scissors className="w-4 h-4" /> Remove BG
         </Link>
       </div>
     </motion.div>
