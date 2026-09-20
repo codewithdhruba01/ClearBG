@@ -24,7 +24,7 @@ export const Hero = ({
 }: HeroProps) => {
   return (
     <div className="relative pt-32 pb-20 sm:pt-40 sm:pb-24 overflow-hidden min-h-screen flex flex-col justify-center">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
