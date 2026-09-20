@@ -1,5 +1,4 @@
 import { useCallback, useState } from 'react';
-import { UploadCloud, FileImage } from 'lucide-react';
 
 interface UploadZoneProps {
   onUpload: (file: File) => void;
@@ -56,7 +55,7 @@ export const UploadZone = ({ onUpload }: UploadZoneProps) => {
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
-        className={`relative flex flex-col items-center justify-center p-8 sm:p-16 w-full min-h-[200px] sm:min-h-[300px] rounded-3xl sm:rounded-[2rem] border-2 border-dashed transition-all duration-300 cursor-pointer group ${
+        className={`relative flex flex-col items-center justify-center p-8 sm:p-16 w-full min-h-50 sm:min-h-75 rounded-3xl sm:rounded-4xl border-2 border-dashed transition-all duration-300 cursor-pointer group ${
           isDragging 
             ? 'border-foreground/60 bg-foreground/5' 
             : 'border-foreground/10 hover:border-foreground/40 hover:bg-foreground/2'

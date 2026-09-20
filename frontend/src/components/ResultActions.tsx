@@ -26,7 +26,7 @@ export const ResultActions = ({ processedImage, onReset }: ResultActionsProps) =
     >
       <button 
         onClick={handleDownload}
-        className="w-full sm:w-auto flex items-center justify-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-3 rounded-xl font-medium transition-colors shadow-lg shadow-primary/25"
+        className="w-full sm:w-auto flex items-center justify-center gap-2 btn-theme-inverse hover:opacity-80 transition-opacity cursor-pointer px-8 py-3 rounded-full font-medium shadow-2xl"
       >
         <Download className="w-5 h-5" />
         Download PNG
@@ -34,7 +34,7 @@ export const ResultActions = ({ processedImage, onReset }: ResultActionsProps) =
       
       <button 
         onClick={onReset}
-        className="w-full sm:w-auto flex items-center justify-center gap-2 bg-card border border-border text-foreground hover:bg-accent px-8 py-3 rounded-xl font-medium transition-colors"
+        className="w-full sm:w-auto flex items-center justify-center gap-2 btn-theme-inverse hover:opacity-80 transition-opacity cursor-pointer px-8 py-3 rounded-full font-medium"
       >
         <RefreshCw className="w-5 h-5" />
         Process Another Image
