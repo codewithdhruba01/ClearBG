@@ -48,10 +48,13 @@ export const Navbar = () => {
           <div className="flex items-center gap-6">
             <button 
               onClick={toggleTheme}
-              className="p-2 rounded-full border border-border hover:bg-accent text-foreground/80 hover:text-foreground transition-colors focus:outline-none flex items-center justify-center"
+              className="group relative p-2 rounded-full text-foreground/80 focus:outline-none flex items-center justify-center cursor-pointer"
               aria-label="Toggle Dark Mode"
             >
               {theme === 'light' ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
+              <span className="absolute top-full mt-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-foreground text-background px-3 py-1.5 text-xs font-semibold opacity-0 transition-all group-hover:opacity-100 pointer-events-none shadow-lg before:content-[''] before:absolute before:-top-1 before:left-1/2 before:-translate-x-1/2 before:w-2.5 before:h-2.5 before:bg-foreground before:rotate-45 before:-z-10 z-50">
+                Switch to {theme === 'light' ? 'Dark' : 'Light'} mode
+              </span>
             </button>
             
             {!isRemovePage && (
