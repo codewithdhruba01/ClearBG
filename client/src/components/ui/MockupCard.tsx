@@ -50,7 +50,7 @@ export const MockupCard = () => {
       className="w-full max-w-2xl relative mt-4"
     >
       
-      <div className="relative rounded-2xl border border-white/10 overflow-hidden aspect-16/10 flex items-center justify-center group bg-black/20">
+      <div className="relative rounded-2xl overflow-hidden aspect-16/10 flex items-center justify-center group bg-black/20">
         
         {/* Transparent Checkerboard Background (shows when bg is removed) */}
         <div className="absolute inset-0 bg-checkerboard opacity-20"></div>
@@ -67,14 +67,14 @@ export const MockupCard = () => {
           {/* Canvas with background removed via chroma key */}
           <ChromaKeyImage 
             src="/Assets/avater.png" 
-            className="absolute w-full h-full object-contain" 
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-full w-auto object-contain rounded-2xl" 
           />
           
           {/* Original Image that fades out smoothly */}
           <motion.img 
             src="/Assets/avater.png" 
             alt="App UI" 
-            className="absolute w-full h-full object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-full w-auto object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-2xl"
             animate={{ opacity: isBgRemoved ? 0 : 1 }}
             transition={{ duration: 0.8, ease: "easeInOut" }}
           />
