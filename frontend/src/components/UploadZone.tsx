@@ -56,10 +56,10 @@ export const UploadZone = ({ onUpload }: UploadZoneProps) => {
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
-        className={`relative flex flex-col items-center justify-center p-16 w-full min-h-[300px] rounded-[2rem] border-2 border-dashed transition-all duration-300 cursor-pointer group ${
+        className={`relative flex flex-col items-center justify-center p-8 sm:p-16 w-full min-h-[200px] sm:min-h-[300px] rounded-3xl sm:rounded-[2rem] border-2 border-dashed transition-all duration-300 cursor-pointer group ${
           isDragging 
-            ? 'border-white/60 bg-white/5' 
-            : 'border-white/10 hover:border-white/40 hover:bg-white/[0.02]'
+            ? 'border-foreground/60 bg-foreground/5' 
+            : 'border-foreground/10 hover:border-foreground/40 hover:bg-foreground/2'
         }`}
       >
         <input 
@@ -74,11 +74,11 @@ export const UploadZone = ({ onUpload }: UploadZoneProps) => {
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
         </div>
         
-        <h3 className="text-base font-bold text-foreground mb-1">
+        <h3 className="text-base font-bold text-foreground mb-1 text-center">
           Drop an image here
         </h3>
         
-        <span className="text-foreground/50 text-sm">
+        <span className="text-foreground/50 text-sm text-center">
           or click to choose one, or paste it
         </span>
       </div>
