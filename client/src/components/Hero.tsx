@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { MockupCard } from './ui/MockupCard';
+import { Button } from './ui/Button';
 
 export const Hero = () => {
   return (
@@ -30,9 +30,9 @@ export const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <Link to="/remove" className="inline-flex items-center justify-center text-center btn-theme-inverse hover:opacity-90 px-4 py-1.5 rounded-full font-medium text-sm transition-opacity">
+            <Button to="/remove" size="sm" className="px-4 py-1.5">
               Make it transparent
-            </Link>
+            </Button>
           </motion.div>
         </div>
 

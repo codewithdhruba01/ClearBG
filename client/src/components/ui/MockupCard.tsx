@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Scissors } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
+import { Button } from './Button';
 
 const ChromaKeyImage = ({ src, className }: { src: string, className: string }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -81,24 +82,26 @@ export const MockupCard = () => {
 
         {/* Hover Action Overlay */}
         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 flex items-center justify-center pointer-events-none">
-          <button 
+          <Button 
             onClick={() => setIsBgRemoved(!isBgRemoved)}
-            className="btn-theme-inverse px-4 py-2 text-sm rounded-full font-medium shadow-2xl hover:opacity-80 transition-opacity flex items-center gap-2 pointer-events-auto"
+            size="sm"
+            className="shadow-2xl gap-2 pointer-events-auto"
           >
             <Scissors className="w-4 h-4" /> 
             {isBgRemoved ? 'Restore BG' : 'Remove BG'}
-          </button>
+          </Button>
         </div>
       </div>
       
       <div className="flex justify-between items-center mt-6 text-foreground/50 text-sm px-2">
         <span>This is the whole image. Try it.</span>
-        <button 
+        <Button 
           onClick={() => setIsBgRemoved(!isBgRemoved)}
-          className="flex items-center gap-2 btn-theme-inverse hover:opacity-80 transition-opacity cursor-pointer px-4 py-2 rounded-full font-medium"
+          size="sm"
+          className="gap-2"
         >
           <Scissors className="w-4 h-4" /> {isBgRemoved ? 'Restore BG' : 'Remove BG'}
-        </button>
+        </Button>
       </div>
     </motion.div>
   );

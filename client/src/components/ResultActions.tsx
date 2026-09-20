@@ -1,5 +1,6 @@
 import { Download, RefreshCw } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Button } from './ui/Button';
 
 interface ResultActionsProps {
   processedImage: string;
@@ -24,21 +25,21 @@ export const ResultActions = ({ processedImage, onReset }: ResultActionsProps) =
       transition={{ delay: 0.3 }}
       className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-4 w-full"
     >
-      <button 
+      <Button 
         onClick={handleDownload}
-        className="w-full sm:w-auto flex items-center justify-center gap-2 btn-theme-inverse hover:opacity-80 transition-opacity cursor-pointer px-6 py-2 text-sm rounded-full font-medium shadow-2xl"
+        className="w-full sm:w-auto gap-2 shadow-2xl"
       >
         <Download className="w-4 h-4" />
         Download PNG
-      </button>
+      </Button>
       
-      <button 
+      <Button 
         onClick={onReset}
-        className="w-full sm:w-auto flex items-center justify-center gap-2 btn-theme-inverse hover:opacity-80 transition-opacity cursor-pointer px-6 py-2 text-sm rounded-full font-medium"
+        className="w-full sm:w-auto gap-2"
       >
         <RefreshCw className="w-4 h-4" />
         Another Image
-      </button>
+      </Button>
     </motion.div>
   );
 };

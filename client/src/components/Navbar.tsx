@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Moon, Sun, ArrowRight, LayoutTemplate } from 'lucide-react';
+import { Moon, Sun, ArrowRight } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { Logo } from './ui/Logo';
 
