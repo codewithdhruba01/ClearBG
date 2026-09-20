@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Moon, Sun, ArrowRight, LayoutTemplate } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
+import { Logo } from './ui/Logo';
 
 export const Navbar = () => {
   const location = useLocation();
@@ -41,7 +42,7 @@ export const Navbar = () => {
       <div className={`${isRemovePage ? 'max-w-2xl' : 'max-w-6xl'} mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-300`}>
         <div className="flex justify-between items-center h-20">
           <Link to="/" className="shrink-0 flex items-center gap-3 cursor-pointer">
-            <LayoutTemplate className="w-5 h-5 text-foreground" />
+            <Logo className="w-8 h-5 text-foreground" />
             <span className="font-semibold text-lg tracking-tight text-foreground">ClearBG</span>
           </Link>
           
