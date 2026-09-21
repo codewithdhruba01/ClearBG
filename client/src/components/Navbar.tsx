@@ -49,7 +49,7 @@ export const Navbar = () => {
           
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-1">
-              <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="group relative text-foreground/80 hover:text-foreground transition-colors p-2 flex items-center justify-center rounded-full hover:bg-foreground/5 cursor-pointer" aria-label="Follow us on X">
+              <a href="https://x.com/codewithdhruba" target="_blank" rel="noopener noreferrer" className="group relative text-foreground/80 hover:text-foreground transition-colors p-2 flex items-center justify-center rounded-full hover:bg-foreground/5 cursor-pointer" aria-label="Follow us on X">
                 <XIcon size={15} />
                 <span className="hidden sm:block absolute top-full mt-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-foreground text-background px-3 py-1.5 text-xs font-semibold opacity-0 transition-all group-hover:opacity-100 pointer-events-none shadow-lg before:content-[''] before:absolute before:-top-1 before:left-1/2 before:-translate-x-1/2 before:w-2.5 before:h-2.5 before:bg-foreground before:rotate-45 before:-z-10 z-50">
                   Follow us on X
