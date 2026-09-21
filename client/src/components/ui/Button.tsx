@@ -34,7 +34,7 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
 
     if ('to' in props && props.to) {
       return (
-        <Link to={props.to} className={finalClassName} {...(props as LinkProps)} ref={ref as any}>
+        <Link className={finalClassName} {...(props as LinkProps)} ref={ref as any}>
           {children}
         </Link>
       );
@@ -42,7 +42,7 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
 
     if ('href' in props && props.href) {
       return (
-        <a href={props.href} className={finalClassName} {...(props as AnchorHTMLAttributes<HTMLAnchorElement>)} ref={ref as any}>
+        <a className={finalClassName} {...(props as AnchorHTMLAttributes<HTMLAnchorElement>)} ref={ref as any}>
           {children}
         </a>
       );
