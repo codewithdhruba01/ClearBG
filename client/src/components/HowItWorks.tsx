@@ -14,7 +14,7 @@ const steps = [
   {
     number: '03',
     title: 'Download Result',
-    description: 'Get your high-quality transparent PNG ready to use anywhere.'
+    description: 'Select your desired quality (Low, Medium, High) and download your transparent PNG.'
   }
 ];
 
