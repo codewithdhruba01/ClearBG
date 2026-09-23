@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { GripVertical } from 'lucide-react';
+import { GripIcon } from './svg/GripIcon';
 import { motion } from 'framer-motion';
 
 interface ComparisonSliderProps {
@@ -102,8 +102,8 @@ export const ComparisonSlider = ({ originalImage, processedImage }: ComparisonSl
         className="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize hover:bg-white transition-colors group z-20"
         style={{ left: `calc(${sliderPosition}% - 2px)` }}
       >
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white text-primary rounded-full shadow-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-          <GripVertical className="w-5 h-5" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white text-black rounded-full shadow-lg flex items-center justify-center">
+          <GripIcon className="w-5 h-5" size={20} />
         </div>
       </div>
     </motion.div>
