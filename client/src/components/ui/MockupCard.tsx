@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Scissors } from 'lucide-react';
+import { MagicWandIcon } from '../svg/MagicWand';
 import { useState, useRef, useEffect } from 'react';
 import { Button } from './Button';
 
@@ -87,7 +87,7 @@ export const MockupCard = () => {
             size="sm"
             className="shadow-2xl gap-2 pointer-events-auto"
           >
-            <Scissors className="w-4 h-4" /> 
+            <MagicWandIcon className="w-4 h-4" size={16} /> 
             {isBgRemoved ? 'Restore BG' : 'Remove BG'}
           </Button>
         </div>
@@ -100,7 +100,7 @@ export const MockupCard = () => {
           size="sm"
           className="gap-2"
         >
-          <Scissors className="w-4 h-4" /> {isBgRemoved ? 'Restore BG' : 'Remove BG'}
+          <MagicWandIcon className="w-4 h-4" size={16} /> {isBgRemoved ? 'Restore BG' : 'Remove BG'}
         </Button>
       </div>
     </motion.div>
