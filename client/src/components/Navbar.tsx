@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { ArrowRight } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { Logo } from './ui/Logo';
 import { XIcon } from './svg/X';
 import { SunIcon } from './svg/Sun';
 import { MoonIcon } from './svg/Moon';
+import { ArrowIcon } from './svg/Arrow';
 export const Navbar = () => {
   const location = useLocation();
   const isRemovePage = location.pathname === '/remove';
@@ -49,7 +49,7 @@ export const Navbar = () => {
           </Link>
           
           <div className="flex items-center gap-6">
-            <div className="flex items-center gap-1">
+            <div className="flex items-center">
               <a href="https://x.com/codewithdhruba" target="_blank" rel="noopener noreferrer" className="group relative text-foreground/80 hover:text-foreground transition-colors p-2 flex items-center justify-center rounded-full hover:bg-foreground/5 cursor-pointer" aria-label="Follow us on X">
                 <XIcon size={15} />
                 <span className="hidden sm:block absolute top-full mt-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-foreground text-background px-3 py-1.5 text-xs font-semibold opacity-0 transition-all group-hover:opacity-100 pointer-events-none shadow-lg before:content-[''] before:absolute before:-top-1 before:left-1/2 before:-translate-x-1/2 before:w-2.5 before:h-2.5 before:bg-foreground before:rotate-45 before:-z-10 z-50">
@@ -74,7 +74,7 @@ export const Navbar = () => {
             
             {!isRemovePage && (
               <Link to="/remove" className="hidden sm:flex items-center gap-2 text-foreground/70 hover:text-foreground transition-colors text-sm font-medium">
-                Remove background <ArrowRight className="w-4 h-4" />
+                Remove background <ArrowIcon className="w-4 h-4" size={16} />
               </Link>
             )}
           </div>
