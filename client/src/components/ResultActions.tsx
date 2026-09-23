@@ -1,4 +1,5 @@
-import { Download, RefreshCw } from 'lucide-react';
+import { DownloadIcon } from './svg/Download';
+import { RefreshIcon } from './svg/Refresh';
 import { motion } from 'framer-motion';
 import { Button } from './ui/Button';
 
@@ -29,7 +30,7 @@ export const ResultActions = ({ processedImage, onReset }: ResultActionsProps) =
         onClick={handleDownload}
         className="w-full sm:w-auto gap-2 shadow-2xl"
       >
-        <Download className="w-4 h-4" />
+        <DownloadIcon className="w-4 h-4" size={16} />
         Download PNG
       </Button>
       
@@ -37,7 +38,7 @@ export const ResultActions = ({ processedImage, onReset }: ResultActionsProps) =
         onClick={onReset}
         className="w-full sm:w-auto gap-2"
       >
-        <RefreshCw className="w-4 h-4" />
+        <RefreshIcon className="w-4 h-4" size={16} />
         Another Image
       </Button>
     </motion.div>
