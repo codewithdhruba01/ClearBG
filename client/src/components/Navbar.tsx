@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Moon, Sun, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { Logo } from './ui/Logo';
 import { XIcon } from './svg/X';
-
+import { SunIcon } from './svg/Sun';
+import { MoonIcon } from './svg/Moon';
 export const Navbar = () => {
   const location = useLocation();
   const isRemovePage = location.pathname === '/remove';
@@ -60,7 +61,11 @@ export const Navbar = () => {
                 className="group relative p-2 rounded-full text-foreground/80 focus:outline-none flex items-center justify-center cursor-pointer hover:bg-foreground/5"
                 aria-label="Toggle Dark Mode"
               >
-                {theme === 'light' ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
+                {theme === 'light' ? (
+                  <MoonIcon size={19} />
+                ) : (
+                  <SunIcon size={19} />
+                )}
                 <span className="hidden sm:block absolute top-full mt-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-foreground text-background px-3 py-1.5 text-xs font-semibold opacity-0 transition-all group-hover:opacity-100 pointer-events-none shadow-lg before:content-[''] before:absolute before:-top-1 before:left-1/2 before:-translate-x-1/2 before:w-2.5 before:h-2.5 before:bg-foreground before:rotate-45 before:-z-10 z-50">
                   Switch to {theme === 'light' ? 'Dark' : 'Light'} mode
                 </span>
