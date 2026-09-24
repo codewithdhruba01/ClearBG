@@ -57,12 +57,12 @@ export const ResultActions = ({ processedImage, onReset }: ResultActionsProps) =
     >
       <div className="flex flex-col items-center gap-2 w-full">
         <span className="text-sm font-medium text-foreground/70">Download Quality</span>
-        <div className="flex p-1 bg-foreground/5 rounded-md border border-border w-full sm:w-auto relative">
+        <div className="flex p-1 bg-foreground/5 rounded-md border border-border w-auto relative">
           {(['low', 'medium', 'high'] as const).map((q) => (
             <button
               key={q}
               onClick={() => setQuality(q)}
-              className={`relative flex-1 sm:w-24 py-1.5 text-sm font-medium rounded-sm capitalize transition-colors duration-200 ${
+              className={`relative flex-1 w-20 sm:w-24 py-1.5 text-sm font-medium rounded-sm capitalize transition-colors duration-200 ${
                 quality === q 
                   ? 'text-foreground' 
                   : 'text-foreground/60 hover:text-foreground'
@@ -81,10 +81,10 @@ export const ResultActions = ({ processedImage, onReset }: ResultActionsProps) =
         </div>
       </div>
 
-      <div className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full">
+      <div className="flex flex-row flex-wrap gap-4 justify-center items-center w-full">
         <Button 
           onClick={handleDownload}
-          className="w-full sm:w-auto gap-2 shadow-2xl"
+          className="w-auto gap-2 shadow-2xl"
         >
           <DownloadIcon className="w-4 h-4" size={16} />
           Download PNG
@@ -92,7 +92,7 @@ export const ResultActions = ({ processedImage, onReset }: ResultActionsProps) =
         
         <Button 
           onClick={onReset}
-          className="w-full sm:w-auto gap-2"
+          className="w-auto gap-2"
         >
           <RefreshIcon className="w-4 h-4" size={16} />
           Another Image
