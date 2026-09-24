@@ -41,6 +41,18 @@
       content="Free, fast, and high-quality background removal tool. Easily remove backgrounds from your photos in seconds with AI."
     />
     <meta property="twitter:image" content="/og/project.png" />
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('theme');
+          if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
