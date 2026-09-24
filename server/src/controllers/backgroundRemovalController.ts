@@ -3,7 +3,11 @@ import { backgroundRemovalService } from '../services/backgroundRemovalService';
 import fs from 'fs';
 import path from 'path';
 
-export const removeBackground = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const removeBackground = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
   if (!req.file) {
     res.status(400).json({ success: false, message: 'No image provided.' });
     return;
@@ -13,7 +17,7 @@ export const removeBackground = async (req: Request, res: Response, next: NextFu
 
   try {
     const processedImageBuffer = await backgroundRemovalService.processImage(tempFilePath);
-    
+
     // Convert to base64 for easy consumption by the client
     const base64Image = processedImageBuffer.toString('base64');
     const dataUrl = `data:image/png;base64,${base64Image}`;

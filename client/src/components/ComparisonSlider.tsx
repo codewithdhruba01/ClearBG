@@ -20,15 +20,21 @@ export const ComparisonSlider = ({ originalImage, processedImage }: ComparisonSl
     setSliderPosition(percent);
   }, []);
 
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    if (!isDragging) return;
-    handleMove(e.clientX);
-  }, [isDragging, handleMove]);
+  const handleMouseMove = useCallback(
+    (e: MouseEvent) => {
+      if (!isDragging) return;
+      handleMove(e.clientX);
+    },
+    [isDragging, handleMove],
+  );
 
-  const handleTouchMove = useCallback((e: TouchEvent) => {
-    if (!isDragging) return;
-    handleMove(e.touches[0].clientX);
-  }, [isDragging, handleMove]);
+  const handleTouchMove = useCallback(
+    (e: TouchEvent) => {
+      if (!isDragging) return;
+      handleMove(e.touches[0].clientX);
+    },
+    [isDragging, handleMove],
+  );
 
   const handleMouseUp = useCallback(() => {
     setIsDragging(false);
@@ -55,7 +61,7 @@ export const ComparisonSlider = ({ originalImage, processedImage }: ComparisonSl
   }, [isDragging, handleMouseMove, handleMouseUp, handleTouchMove]);
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.4 }}
@@ -72,9 +78,9 @@ export const ComparisonSlider = ({ originalImage, processedImage }: ComparisonSl
     >
       {/* Background/Processed Image (Bottom layer) */}
       <div className="absolute inset-0 w-full h-full bg-checkerboard flex items-center justify-center">
-        <img 
-          src={processedImage} 
-          alt="Processed" 
+        <img
+          src={processedImage}
+          alt="Processed"
           className="w-full h-full object-contain pointer-events-none"
         />
         <div className="absolute bottom-4 right-4 bg-black/50 backdrop-blur-md text-white px-3 py-1 rounded-full text-xs font-medium z-10 pointer-events-none">
@@ -83,13 +89,13 @@ export const ComparisonSlider = ({ originalImage, processedImage }: ComparisonSl
       </div>
 
       {/* Foreground/Original Image (Top layer) */}
-      <div 
+      <div
         className="absolute inset-0 w-full h-full bg-card flex items-center justify-center overflow-hidden border-r-2 border-white/50 shadow-[1px_0_15px_rgba(0,0,0,0.15)]"
         style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
       >
-        <img 
-          src={originalImage} 
-          alt="Original" 
+        <img
+          src={originalImage}
+          alt="Original"
           className="absolute inset-0 w-full h-full object-contain pointer-events-none"
         />
         <div className="absolute bottom-4 left-4 bg-black/50 backdrop-blur-md text-white px-3 py-1 rounded-full text-xs font-medium z-10 pointer-events-none">
@@ -98,7 +104,7 @@ export const ComparisonSlider = ({ originalImage, processedImage }: ComparisonSl
       </div>
 
       {/* Slider Handle */}
-      <div 
+      <div
         className="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize hover:bg-white transition-colors group z-20"
         style={{ left: `calc(${sliderPosition}% - 2px)` }}
       >

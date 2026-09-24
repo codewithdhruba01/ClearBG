@@ -9,14 +9,14 @@ function App() {
     <BrowserRouter>
       <div className="min-h-screen flex flex-col font-sans">
         <Navbar />
-        
+
         <main className="grow">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/remove" element={<RemoveBg />} />
           </Routes>
         </main>
-        
+
         <Footer />
       </div>
     </BrowserRouter>

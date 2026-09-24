@@ -42,7 +42,7 @@ export class MockProvider implements BackgroundRemovalProvider {
   async removeBackground(imagePath: string): Promise<Buffer> {
     console.log(`Mock processing image: ${imagePath}`);
     // Simulate processing time
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     // In a real mock, we might return a static transparent image
     // For this mock, we just return the original file to prevent errors
     // Alternatively, we can throw an error if this is truly a mock that we want to fail

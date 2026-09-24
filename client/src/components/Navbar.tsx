@@ -12,7 +12,10 @@ export const Navbar = () => {
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     if (typeof window !== 'undefined') {
       const stored = localStorage.getItem('theme');
-      if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      if (
+        stored === 'dark' ||
+        (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)
+      ) {
         return 'dark';
       }
     }
@@ -41,39 +44,46 @@ export const Navbar = () => {
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-background">
-      <div className={`${isRemovePage ? 'max-w-2xl' : 'max-w-6xl'} mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-300`}>
+      <div
+        className={`${isRemovePage ? 'max-w-2xl' : 'max-w-6xl'} mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-300`}
+      >
         <div className="flex justify-between items-center h-20">
           <Link to="/" className="shrink-0 flex items-center gap-3 cursor-pointer">
             <Logo className="w-8 h-5 text-foreground" />
             <span className="font-semibold text-lg tracking-tight text-foreground">ClearBG</span>
           </Link>
-          
+
           <div className="flex items-center gap-6">
             <div className="flex items-center">
-              <a href="https://x.com/codewithdhruba" target="_blank" rel="noopener noreferrer" className="group relative text-foreground/80 hover:text-foreground transition-colors p-2 flex items-center justify-center rounded-full hover:bg-foreground/5 cursor-pointer" aria-label="Follow us on X">
+              <a
+                href="https://x.com/codewithdhruba"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative text-foreground/80 hover:text-foreground transition-colors p-2 flex items-center justify-center rounded-full hover:bg-foreground/5 cursor-pointer"
+                aria-label="Follow us on X"
+              >
                 <XIcon size={15} />
                 <span className="hidden sm:block absolute top-full mt-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-foreground text-background px-3 py-1.5 text-xs font-semibold opacity-0 transition-all group-hover:opacity-100 pointer-events-none shadow-lg before:content-[''] before:absolute before:-top-1 before:left-1/2 before:-translate-x-1/2 before:w-2.5 before:h-2.5 before:bg-foreground before:rotate-45 before:-z-10 z-50">
                   Follow us on X
                 </span>
               </a>
-              <button 
+              <button
                 onClick={toggleTheme}
                 className="group relative p-2 rounded-full text-foreground/80 focus:outline-none flex items-center justify-center cursor-pointer hover:bg-foreground/5"
                 aria-label="Toggle Dark Mode"
               >
-                {theme === 'light' ? (
-                  <MoonIcon size={19} />
-                ) : (
-                  <SunIcon size={19} />
-                )}
+                {theme === 'light' ? <MoonIcon size={19} /> : <SunIcon size={19} />}
                 <span className="hidden sm:block absolute top-full mt-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-foreground text-background px-3 py-1.5 text-xs font-semibold opacity-0 transition-all group-hover:opacity-100 pointer-events-none shadow-lg before:content-[''] before:absolute before:-top-1 before:left-1/2 before:-translate-x-1/2 before:w-2.5 before:h-2.5 before:bg-foreground before:rotate-45 before:-z-10 z-50">
                   Switch to {theme === 'light' ? 'Dark' : 'Light'} mode
                 </span>
               </button>
             </div>
-            
+
             {!isRemovePage && (
-              <Link to="/remove" className="hidden sm:flex items-center gap-2 text-foreground/70 hover:text-foreground transition-colors text-sm font-medium">
+              <Link
+                to="/remove"
+                className="hidden sm:flex items-center gap-2 text-foreground/70 hover:text-foreground transition-colors text-sm font-medium"
+              >
                 Remove background <ArrowIcon className="w-4 h-4" size={16} />
               </Link>
             )}

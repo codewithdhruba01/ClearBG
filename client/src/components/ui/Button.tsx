@@ -8,7 +8,8 @@ type BaseProps = {
   size?: 'default' | 'sm' | 'lg';
 };
 
-type ButtonAsButton = BaseProps & ButtonHTMLAttributes<HTMLButtonElement> & { to?: never; href?: never };
+type ButtonAsButton = BaseProps &
+  ButtonHTMLAttributes<HTMLButtonElement> & { to?: never; href?: never };
 type ButtonAsLink = BaseProps & LinkProps & { href?: never };
 type ButtonAsAnchor = BaseProps & AnchorHTMLAttributes<HTMLAnchorElement> & { to?: never };
 
@@ -16,18 +17,18 @@ export type ButtonProps = ButtonAsButton | ButtonAsLink | ButtonAsAnchor;
 
 export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
   ({ children, className = '', size = 'default', ...props }, ref) => {
-    
     // Default base classes for all buttons (btn-theme-inverse provides the colors)
-    let baseClasses = "inline-flex items-center justify-center text-center btn-theme-inverse hover:opacity-90 rounded-full font-medium transition-opacity cursor-pointer";
-    
+    let baseClasses =
+      'inline-flex items-center justify-center text-center btn-theme-inverse hover:opacity-90 rounded-full font-medium transition-opacity cursor-pointer';
+
     // Add size classes based on what was used in the app
     if (size === 'sm') {
-      baseClasses += " px-4 py-1.5 text-sm";
+      baseClasses += ' px-4 py-1.5 text-sm';
     } else if (size === 'lg') {
-      baseClasses += " px-6 py-3 text-base";
+      baseClasses += ' px-6 py-3 text-base';
     } else {
       // default size used in most places
-      baseClasses += " px-6 py-2 text-sm";
+      baseClasses += ' px-6 py-2 text-sm';
     }
 
     const finalClassName = `${baseClasses} ${className}`.trim();
@@ -42,18 +43,26 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
 
     if ('href' in props && props.href) {
       return (
-        <a className={finalClassName} {...(props as AnchorHTMLAttributes<HTMLAnchorElement>)} ref={ref as any}>
+        <a
+          className={finalClassName}
+          {...(props as AnchorHTMLAttributes<HTMLAnchorElement>)}
+          ref={ref as any}
+        >
           {children}
         </a>
       );
     }
 
     return (
-      <button className={finalClassName} {...(props as ButtonHTMLAttributes<HTMLButtonElement>)} ref={ref as any}>
+      <button
+        className={finalClassName}
+        {...(props as ButtonHTMLAttributes<HTMLButtonElement>)}
+        ref={ref as any}
+      >
         {children}
       </button>
     );
-  }
+  },
 );
 
 Button.displayName = 'Button';

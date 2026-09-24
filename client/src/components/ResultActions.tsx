@@ -11,13 +11,13 @@ interface ResultActionsProps {
 
 export const ResultActions = ({ processedImage, onReset }: ResultActionsProps) => {
   const [quality, setQuality] = useState<'low' | 'medium' | 'high'>('high');
-  
+
   const handleDownload = async () => {
     let downloadUrl = processedImage;
 
     if (quality !== 'high') {
       const scale = quality === 'medium' ? 0.5 : 0.25;
-      
+
       try {
         const img = new Image();
         img.src = processedImage;
@@ -25,18 +25,18 @@ export const ResultActions = ({ processedImage, onReset }: ResultActionsProps) =
           img.onload = resolve;
           img.onerror = reject;
         });
-        
+
         const canvas = document.createElement('canvas');
         canvas.width = img.width * scale;
         canvas.height = img.height * scale;
-        
+
         const ctx = canvas.getContext('2d');
         if (ctx) {
           ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
           downloadUrl = canvas.toDataURL('image/png');
         }
       } catch (err) {
-        console.error("Error resizing image:", err);
+        console.error('Error resizing image:', err);
       }
     }
 
@@ -49,7 +49,7 @@ export const ResultActions = ({ processedImage, onReset }: ResultActionsProps) =
   };
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.3 }}
@@ -63,16 +63,14 @@ export const ResultActions = ({ processedImage, onReset }: ResultActionsProps) =
               key={q}
               onClick={() => setQuality(q)}
               className={`relative flex-1 w-20 sm:w-24 py-1.5 text-sm font-medium rounded-sm capitalize transition-colors duration-200 ${
-                quality === q 
-                  ? 'text-foreground' 
-                  : 'text-foreground/60 hover:text-foreground'
+                quality === q ? 'text-foreground' : 'text-foreground/60 hover:text-foreground'
               }`}
             >
               {quality === q && (
                 <motion.div
                   layoutId="active-quality"
                   className="absolute inset-0 bg-background shadow-sm rounded-sm"
-                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                 />
               )}
               <span className="relative z-10">{q}</span>
@@ -82,18 +80,12 @@ export const ResultActions = ({ processedImage, onReset }: ResultActionsProps) =
       </div>
 
       <div className="flex flex-row flex-wrap gap-4 justify-center items-center w-full">
-        <Button 
-          onClick={handleDownload}
-          className="w-auto gap-2 shadow-2xl"
-        >
+        <Button onClick={handleDownload} className="w-auto gap-2 shadow-2xl">
           <DownloadIcon className="w-4 h-4" size={16} />
           Download PNG
         </Button>
-        
-        <Button 
-          onClick={onReset}
-          className="w-auto gap-2"
-        >
+
+        <Button onClick={onReset} className="w-auto gap-2">
           <RefreshIcon className="w-4 h-4" size={16} />
           Another Image
         </Button>

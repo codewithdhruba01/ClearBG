@@ -12,27 +12,27 @@ export const useBackgroundRemoval = () => {
     try {
       setStatus('processing');
       setErrorMessage('');
-      
+
       // Create local preview immediately
       const objectUrl = URL.createObjectURL(file);
       setOriginalImage(objectUrl);
-      
+
       const formData = new FormData();
       formData.append('image', file);
-      
+
       const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
-      
+
       const response = await fetch(`${apiUrl}/remove-background`, {
         method: 'POST',
         body: formData,
       });
-      
+
       const data = await response.json();
-      
+
       if (!response.ok || !data.success) {
         throw new Error(data.message || 'Failed to process image');
       }
-      
+
       setProcessedImage(data.image);
       setStatus('success');
     } catch (error: any) {
@@ -57,6 +57,6 @@ export const useBackgroundRemoval = () => {
     processedImage,
     errorMessage,
     processImage,
-    reset
+    reset,
   };
 };
