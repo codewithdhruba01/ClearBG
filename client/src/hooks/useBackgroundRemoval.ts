@@ -26,7 +26,9 @@ export const useBackgroundRemoval = () => {
       setStatus('success');
     } catch (error: unknown) {
       setStatus('error');
-      setErrorMessage(error instanceof Error ? error.message : 'Failed to remove background locally.');
+      setErrorMessage(
+        error instanceof Error ? error.message : 'Failed to remove background locally.',
+      );
       console.error('Local background removal error:', error);
     }
   }, []);

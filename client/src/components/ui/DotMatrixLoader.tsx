@@ -3,7 +3,12 @@ import { useEffect, useState } from 'react';
 const BASE_OPACITY = 0.08;
 const GATE_OPACITY = 0.92;
 
-export const DotMatrixLoader = ({ size = 64, speed = 1 }) => {
+interface DotMatrixLoaderProps {
+  size?: number;
+  speed?: number;
+}
+
+export const DotMatrixLoader = ({ size = 64, speed = 1 }: DotMatrixLoaderProps) => {
   const [time, setTime] = useState(0);
 
   useEffect(() => {
@@ -27,7 +32,7 @@ export const DotMatrixLoader = ({ size = 64, speed = 1 }) => {
       const dx = col - center;
       const dy = row - center;
       const distance = Math.sqrt(dx * dx + dy * dy);
-      
+
       // Circular mask for 7x7 grid: skip corners where distance > 3.16
       if (distance * distance > 10) {
         continue;
@@ -56,22 +61,22 @@ export const DotMatrixLoader = ({ size = 64, speed = 1 }) => {
             gridRow: row + 1,
             opacity: opacity,
             width: '100%',
-            height: '100%'
+            height: '100%',
           }}
-        />
+        />,
       );
     }
   }
 
   return (
-    <div 
-      className="grid mb-6" 
-      style={{ 
-        width: size, 
-        height: size, 
+    <div
+      className="grid mb-6"
+      style={{
+        width: size,
+        height: size,
         gap: '4px',
         gridTemplateColumns: `repeat(${gridSize}, 1fr)`,
-        gridTemplateRows: `repeat(${gridSize}, 1fr)`
+        gridTemplateRows: `repeat(${gridSize}, 1fr)`,
       }}
     >
       {dots}
