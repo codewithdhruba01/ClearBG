@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { DotMatrixLoader } from './ui/DotMatrixLoader';
 
 interface ProcessingStateProps {
   originalImage: string;
@@ -18,11 +19,7 @@ export const ProcessingState = ({ originalImage }: ProcessingStateProps) => {
       />
 
       <div className="relative z-10 flex flex-col items-center">
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ repeat: Infinity, duration: 1, ease: 'linear' }}
-          className="mb-6 w-20 h-20 rounded-full border-4 border-primary/30 border-t-primary"
-        />
+        <DotMatrixLoader size={80} speed={1.2} />
 
         <h3 className="text-2xl font-bold text-foreground mb-2">Removing Background...</h3>
         <p className="text-foreground/70">AI is processing your image</p>
