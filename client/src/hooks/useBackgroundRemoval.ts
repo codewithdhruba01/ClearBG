@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import { removeBackground } from '@imgly/background-removal';
 
 export type ProcessStatus = 'idle' | 'uploading' | 'processing' | 'success' | 'error';
 
@@ -17,27 +18,16 @@ export const useBackgroundRemoval = () => {
       const objectUrl = URL.createObjectURL(file);
       setOriginalImage(objectUrl);
 
-      const formData = new FormData();
-      formData.append('image', file);
-
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
-
-      const response = await fetch(`${apiUrl}/remove-background`, {
-        method: 'POST',
-        body: formData,
-      });
-
-      const data = await response.json();
-
-      if (!response.ok || !data.success) {
-        throw new Error(data.message || 'Failed to process image');
-      }
-
-      setProcessedImage(data.image);
+      // Run background removal locally using WebAssembly!
+      const blob = await removeBackground(file);
+      
+      const processedObjectUrl = URL.createObjectURL(blob);
+      setProcessedImage(processedObjectUrl);
       setStatus('success');
     } catch (error: any) {
       setStatus('error');
-      setErrorMessage(error.message || 'Something went wrong. Please try again.');
+      setErrorMessage(error.message || 'Failed to remove background locally.');
+      console.error('Local background removal error:', error);
     }
   }, []);
 
@@ -45,11 +35,14 @@ export const useBackgroundRemoval = () => {
     if (originalImage) {
       URL.revokeObjectURL(originalImage);
     }
+    if (processedImage && processedImage.startsWith('blob:')) {
+      URL.revokeObjectURL(processedImage);
+    }
     setStatus('idle');
     setOriginalImage(null);
     setProcessedImage(null);
     setErrorMessage('');
-  }, [originalImage]);
+  }, [originalImage, processedImage]);
 
   return {
     status,
