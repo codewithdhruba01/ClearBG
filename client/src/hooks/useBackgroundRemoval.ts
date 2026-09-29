@@ -20,13 +20,13 @@ export const useBackgroundRemoval = () => {
 
       // Run background removal locally using WebAssembly!
       const blob = await removeBackground(file);
-      
+
       const processedObjectUrl = URL.createObjectURL(blob);
       setProcessedImage(processedObjectUrl);
       setStatus('success');
-    } catch (error: any) {
+    } catch (error: unknown) {
       setStatus('error');
-      setErrorMessage(error.message || 'Failed to remove background locally.');
+      setErrorMessage(error instanceof Error ? error.message : 'Failed to remove background locally.');
       console.error('Local background removal error:', error);
     }
   }, []);

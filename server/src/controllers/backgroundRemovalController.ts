@@ -6,7 +6,7 @@ import path from 'path';
 export const removeBackground = async (
   req: Request,
   res: Response,
-  next: NextFunction,
+  _next: NextFunction,
 ): Promise<void> => {
   if (!req.file) {
     res.status(400).json({ success: false, message: 'No image provided.' });
@@ -26,10 +26,10 @@ export const removeBackground = async (
       success: true,
       image: dataUrl,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     res.status(500).json({
       success: false,
-      message: error.message || 'Unable to process this image.',
+      message: error instanceof Error ? error.message : 'Unable to process this image.',
     });
   } finally {
     // Clean up temporary file
