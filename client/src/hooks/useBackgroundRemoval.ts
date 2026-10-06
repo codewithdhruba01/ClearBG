@@ -3,16 +3,16 @@ import { removeBackground, type Config } from '@imgly/background-removal';
 
 export type ProcessStatus = 'idle' | 'uploading' | 'processing' | 'success' | 'error';
 
-// Helper to resize image before AI processing. 
+// Helper to resize image before AI processing.
 // This significantly reduces memory usage (RAM) on mobile devices and speeds up the model.
 const resizeImage = (file: File | Blob, maxDimension: number): Promise<Blob> => {
   return new Promise((resolve, reject) => {
     const img = new Image();
     const objectUrl = URL.createObjectURL(file);
-    
+
     img.onload = () => {
       URL.revokeObjectURL(objectUrl);
-      
+
       let { width, height } = img;
       if (width > maxDimension || height > maxDimension) {
         if (width > height) {
@@ -27,7 +27,7 @@ const resizeImage = (file: File | Blob, maxDimension: number): Promise<Blob> => 
         resolve(file as Blob);
         return;
       }
-      
+
       const canvas = document.createElement('canvas');
       canvas.width = width;
       canvas.height = height;
@@ -36,7 +36,7 @@ const resizeImage = (file: File | Blob, maxDimension: number): Promise<Blob> => 
         reject(new Error('Failed to get canvas context'));
         return;
       }
-      
+
       ctx.drawImage(img, 0, 0, width, height);
       canvas.toBlob(
         (blob) => {
@@ -44,15 +44,15 @@ const resizeImage = (file: File | Blob, maxDimension: number): Promise<Blob> => 
           else reject(new Error('Canvas to Blob failed'));
         },
         'image/jpeg', // Standardize on jpeg for input to AI to save memory
-        0.9
+        0.9,
       );
     };
-    
+
     img.onerror = (error) => {
       URL.revokeObjectURL(objectUrl);
       reject(error);
     };
-    
+
     img.src = objectUrl;
   });
 };
@@ -73,7 +73,7 @@ export const useBackgroundRemoval = () => {
       setOriginalImage(objectUrl);
 
       // Resize the image before feeding to the AI model!
-      // This is the BIGGEST optimization for mobile devices. 
+      // This is the BIGGEST optimization for mobile devices.
       // It prevents 4K images from crashing the browser's WebGL/WASM memory limit.
       const resizedBlob = await resizeImage(file, 1080);
 
@@ -84,7 +84,7 @@ export const useBackgroundRemoval = () => {
         output: {
           format: 'image/png', // Need PNG for transparency
         },
-        debug: true
+        debug: true,
       };
       const blob = await removeBackground(resizedBlob, config);
 
