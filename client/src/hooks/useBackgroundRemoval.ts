@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { removeBackground } from '@imgly/background-removal';
+import { removeBackground, type Config } from '@imgly/background-removal';
 
 export type ProcessStatus = 'idle' | 'uploading' | 'processing' | 'success' | 'error';
 
@@ -19,7 +19,12 @@ export const useBackgroundRemoval = () => {
       setOriginalImage(objectUrl);
 
       // Run background removal locally using WebAssembly!
-      const blob = await removeBackground(file);
+      // Use 'small' model which consumes less memory and is less prone to OOM errors on mobile browsers
+      const config: Config = {
+        model: 'isnet_quint8',
+        debug: true
+      };
+      const blob = await removeBackground(file, config);
 
       const processedObjectUrl = URL.createObjectURL(blob);
       setProcessedImage(processedObjectUrl);
