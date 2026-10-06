@@ -78,24 +78,43 @@ export const useBackgroundRemoval = () => {
       const resizedBlob = await resizeImage(file, 1080);
 
       // Run background removal locally using WebAssembly!
-      // Use 'small' model which consumes less memory and is less prone to OOM errors on mobile browsers
-      const config: Config = {
-        model: 'isnet_quint8',
-        output: {
-          format: 'image/png', // Need PNG for transparency
-        },
-        debug: true,
-      };
-      const blob = await removeBackground(resizedBlob, config);
+      let blob: Blob;
+      try {
+        // Try the most optimized model (isnet_quint8) with default GPU first
+        const config: Config = {
+          model: 'isnet_quint8',
+          output: {
+            format: 'image/png', // Need PNG for transparency
+          },
+          debug: true,
+        };
+        blob = await removeBackground(resizedBlob, config);
+      } catch (firstError) {
+        console.warn(
+          'Initial processing failed, falling back to CPU and fp16 model...',
+          firstError,
+        );
+        // Fallback for mobile devices that don't support WebGL UINT8 extensions
+        // or have strict GPU limitations. We force CPU and use the fp16 model.
+        const fallbackConfig: Config = {
+          model: 'isnet_fp16',
+          device: 'cpu',
+          output: {
+            format: 'image/png',
+          },
+          debug: true,
+        };
+        blob = await removeBackground(resizedBlob, fallbackConfig);
+      }
 
       const processedObjectUrl = URL.createObjectURL(blob);
       setProcessedImage(processedObjectUrl);
       setStatus('success');
     } catch (error: unknown) {
       setStatus('error');
-      setErrorMessage(
-        error instanceof Error ? error.message : 'Failed to remove background locally.',
-      );
+      // Show more detailed error message to help with debugging on mobile
+      const errorMsg = error instanceof Error ? error.message : String(error);
+      setErrorMessage(`Failed to remove background: ${errorMsg}`);
       console.error('Local background removal error:', error);
     }
   }, []);
