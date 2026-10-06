@@ -6,8 +6,15 @@ import { ComparisonSlider } from '../components/ComparisonSlider';
 import { useBackgroundRemoval } from '../hooks/useBackgroundRemoval';
 
 export const RemoveBg = () => {
-  const { status, originalImage, processedImage, errorMessage, processImage, reset } =
-    useBackgroundRemoval();
+  const {
+    status,
+    originalImage,
+    processedImage,
+    errorMessage,
+    progressMessage,
+    processImage,
+    reset,
+  } = useBackgroundRemoval();
 
   return (
     <div className="relative pt-20 pb-12 sm:pt-24 sm:pb-16 overflow-hidden flex flex-col bg-background">
@@ -49,7 +56,7 @@ export const RemoveBg = () => {
           ) : null}
 
           {status === 'processing' && originalImage ? (
-            <ProcessingState originalImage={originalImage} />
+            <ProcessingState originalImage={originalImage} message={progressMessage} />
           ) : null}
 
           {status === 'success' && originalImage && processedImage ? (
