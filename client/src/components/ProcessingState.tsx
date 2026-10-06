@@ -3,10 +3,9 @@ import { DotMatrixLoader } from './ui/DotMatrixLoader';
 
 interface ProcessingStateProps {
   originalImage: string;
-  message?: string;
 }
 
-export const ProcessingState = ({ originalImage, message }: ProcessingStateProps) => {
+export const ProcessingState = ({ originalImage }: ProcessingStateProps) => {
   return (
     <div className="w-full flex flex-col items-center justify-center p-8 md:p-12 h-100 rounded-3xl glass relative overflow-hidden">
       {/* Background blurred image for cool effect */}
@@ -22,26 +21,16 @@ export const ProcessingState = ({ originalImage, message }: ProcessingStateProps
       <div className="relative z-10 flex flex-col items-center">
         <DotMatrixLoader size={80} speed={1.2} />
 
-        <h3 className="text-2xl font-bold text-foreground mb-2">
-          {message && message.includes('%') ? 'Downloading Model...' : 'Removing Background...'}
-        </h3>
-        <p className="text-foreground/70">{message || 'AI is processing your image'}</p>
+        <h3 className="text-2xl font-bold text-foreground mb-2">Removing Background...</h3>
+        <p className="text-foreground/70">AI is processing your image</p>
 
         {/* Progress bar animation */}
         <div className="w-64 h-2 bg-foreground/10 rounded-full mt-8 overflow-hidden">
           <motion.div
             className="h-full bg-primary rounded-full"
             initial={{ width: '0%' }}
-            animate={
-              message && message.includes('%')
-                ? { width: `${parseInt(message.match(/\d+/)?.toString() || '0')}%` }
-                : { width: '100%' }
-            }
-            transition={
-              message && message.includes('%')
-                ? { duration: 0.1 }
-                : { duration: 3, ease: 'easeInOut', repeat: Infinity }
-            }
+            animate={{ width: '100%' }}
+            transition={{ duration: 3, ease: 'easeInOut', repeat: Infinity }}
           />
         </div>
       </div>
