@@ -5,9 +5,10 @@ import { motion } from 'framer-motion';
 interface ComparisonSliderProps {
   originalImage: string;
   processedImage: string;
+  backgroundColor?: string;
 }
 
-export const ComparisonSlider = ({ originalImage, processedImage }: ComparisonSliderProps) => {
+export const ComparisonSlider = ({ originalImage, processedImage, backgroundColor = 'transparent' }: ComparisonSliderProps) => {
   const [sliderPosition, setSliderPosition] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -77,7 +78,10 @@ export const ComparisonSlider = ({ originalImage, processedImage }: ComparisonSl
       }}
     >
       {/* Background/Processed Image (Bottom layer) */}
-      <div className="absolute inset-0 w-full h-full bg-checkerboard flex items-center justify-center">
+      <div 
+        className={`absolute inset-0 w-full h-full flex items-center justify-center ${backgroundColor === 'transparent' ? 'bg-checkerboard' : ''}`}
+        style={backgroundColor !== 'transparent' ? { backgroundColor } : {}}
+      >
         <img
           src={processedImage}
           alt="Processed"

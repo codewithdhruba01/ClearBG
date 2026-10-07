@@ -7,16 +7,20 @@ import { Button } from './ui/Button';
 interface ResultActionsProps {
   processedImage: string;
   onReset: () => void;
+  backgroundColor: string;
+  setBackgroundColor: (color: string) => void;
 }
 
-export const ResultActions = ({ processedImage, onReset }: ResultActionsProps) => {
+const BG_COLORS = ['transparent', '#000000', '#ffffff', '#3b82f6', '#FFEB3B'];
+
+export const ResultActions = ({ processedImage, onReset, backgroundColor, setBackgroundColor }: ResultActionsProps) => {
   const [quality, setQuality] = useState<'low' | 'medium' | 'high'>('high');
 
   const handleDownload = async () => {
     let downloadUrl = processedImage;
 
-    if (quality !== 'high') {
-      const scale = quality === 'medium' ? 0.5 : 0.25;
+    if (quality !== 'high' || backgroundColor !== 'transparent') {
+      const scale = quality === 'medium' ? 0.5 : quality === 'low' ? 0.25 : 1;
 
       try {
         const img = new Image();
@@ -32,17 +36,21 @@ export const ResultActions = ({ processedImage, onReset }: ResultActionsProps) =
 
         const ctx = canvas.getContext('2d');
         if (ctx) {
+          if (backgroundColor !== 'transparent') {
+            ctx.fillStyle = backgroundColor;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+          }
           ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
           downloadUrl = canvas.toDataURL('image/png');
         }
       } catch (err) {
-        console.error('Error resizing image:', err);
+        console.error('Error processing image:', err);
       }
     }
 
     const link = document.createElement('a');
     link.href = downloadUrl;
-    link.download = `clearbg-transparent-${quality}.png`;
+    link.download = `clearbg-${backgroundColor === 'transparent' ? 'transparent' : 'colored'}-${quality}.png`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -55,6 +63,24 @@ export const ResultActions = ({ processedImage, onReset }: ResultActionsProps) =
       transition={{ delay: 0.3 }}
       className="flex flex-col gap-6 justify-center items-center mt-6 w-full max-w-lg mx-auto"
     >
+      <div className="flex flex-col items-center gap-2 w-full">
+        <span className="text-sm font-medium text-foreground/70">Background Color</span>
+        <div className="flex gap-3">
+          {BG_COLORS.map((color) => (
+            <button
+              key={color}
+              onClick={() => setBackgroundColor(color)}
+              className={`w-8 h-8 rounded-full border-2 transition-transform ${
+                backgroundColor === color ? 'border-primary scale-110 shadow-md' : 'border-border/40 hover:scale-105'
+              } ${color === 'transparent' ? 'bg-checkerboard' : ''}`}
+              style={color !== 'transparent' ? { backgroundColor: color } : {}}
+              title={color === 'transparent' ? 'Transparent' : color}
+              aria-label={`Select background color ${color === 'transparent' ? 'Transparent' : color}`}
+            />
+          ))}
+        </div>
+      </div>
+
       <div className="flex flex-col items-center gap-2 w-full">
         <span className="text-sm font-medium text-foreground/70">Download Quality</span>
         <div className="flex p-1 bg-foreground/5 rounded-md border border-border w-auto relative">

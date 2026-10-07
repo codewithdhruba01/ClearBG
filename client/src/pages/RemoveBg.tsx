@@ -4,10 +4,12 @@ import { ProcessingState } from '../components/ProcessingState';
 import { ResultActions } from '../components/ResultActions';
 import { ComparisonSlider } from '../components/ComparisonSlider';
 import { useBackgroundRemoval } from '../hooks/useBackgroundRemoval';
+import { useState } from 'react';
 
 export const RemoveBg = () => {
   const { status, originalImage, processedImage, errorMessage, processImage, reset } =
     useBackgroundRemoval();
+  const [backgroundColor, setBackgroundColor] = useState<string>('transparent');
 
   return (
     <div className="relative pt-20 pb-12 sm:pt-24 sm:pb-16 overflow-hidden flex flex-col bg-background">
@@ -54,8 +56,8 @@ export const RemoveBg = () => {
 
           {status === 'success' && originalImage && processedImage ? (
             <div className="flex flex-col gap-6">
-              <ComparisonSlider originalImage={originalImage} processedImage={processedImage} />
-              <ResultActions processedImage={processedImage} onReset={reset} />
+              <ComparisonSlider originalImage={originalImage} processedImage={processedImage} backgroundColor={backgroundColor} />
+              <ResultActions processedImage={processedImage} onReset={reset} backgroundColor={backgroundColor} setBackgroundColor={setBackgroundColor} />
             </div>
           ) : null}
         </motion.div>
