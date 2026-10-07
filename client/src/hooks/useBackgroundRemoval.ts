@@ -3,8 +3,6 @@ import { removeBackground, type Config } from '@imgly/background-removal';
 
 export type ProcessStatus = 'idle' | 'uploading' | 'processing' | 'success' | 'error';
 
-// Helper to resize image before AI processing.
-// This significantly reduces memory usage (RAM) on mobile devices and speeds up the model.
 const resizeImage = (file: File | Blob, maxDimension: number): Promise<Blob> => {
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -23,7 +21,6 @@ const resizeImage = (file: File | Blob, maxDimension: number): Promise<Blob> => 
           height = maxDimension;
         }
       } else {
-        // No resizing needed, return original
         resolve(file as Blob);
         return;
       }
@@ -43,7 +40,7 @@ const resizeImage = (file: File | Blob, maxDimension: number): Promise<Blob> => 
           if (blob) resolve(blob);
           else reject(new Error('Canvas to Blob failed'));
         },
-        'image/jpeg', // Standardize on jpeg for input to AI to save memory
+        'image/jpeg',
         0.9,
       );
     };
@@ -62,29 +59,22 @@ export const useBackgroundRemoval = () => {
   const [originalImage, setOriginalImage] = useState<string | null>(null);
   const [processedImage, setProcessedImage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string>('');
-
   const processImage = useCallback(async (file: File) => {
     try {
       setStatus('processing');
       setErrorMessage('');
 
-      // Create local preview immediately
       const objectUrl = URL.createObjectURL(file);
       setOriginalImage(objectUrl);
 
-      // Resize the image before feeding to the AI model!
-      // This is the BIGGEST optimization for mobile devices.
-      // It prevents 4K images from crashing the browser's WebGL/WASM memory limit.
       const resizedBlob = await resizeImage(file, 1080);
 
-      // Run background removal locally using WebAssembly!
       let blob: Blob;
       try {
-        // Try the 'isnet_fp16' model first (good balance of quality and performance)
         const config: Config = {
           model: 'isnet_fp16',
           output: {
-            format: 'image/png', // Need PNG for transparency
+            format: 'image/png',
           },
         };
         blob = await removeBackground(resizedBlob, config);
@@ -93,8 +83,7 @@ export const useBackgroundRemoval = () => {
           'Initial processing failed, falling back to small model and CPU...',
           firstError,
         );
-        // Fallback for mobile devices that don't support WebGL or have strict memory limitations.
-        // We use the 'isnet_quint8' model which takes significantly less RAM.
+
         const fallbackConfig: Config = {
           model: 'isnet_quint8',
           device: 'cpu',
@@ -110,7 +99,6 @@ export const useBackgroundRemoval = () => {
       setStatus('success');
     } catch (error: unknown) {
       setStatus('error');
-      // Show more detailed error message to help with debugging on mobile
       const errorMsg = error instanceof Error ? error.message : String(error);
       setErrorMessage(`Failed to remove background: ${errorMsg}`);
       console.error('Local background removal error:', error);
