@@ -80,29 +80,27 @@ export const useBackgroundRemoval = () => {
       // Run background removal locally using WebAssembly!
       let blob: Blob;
       try {
-        // Try the most optimized model (isnet_quint8) with default GPU first
+        // Try the 'isnet_fp16' model first (good balance of quality and performance)
         const config: Config = {
-          model: 'isnet_quint8',
+          model: 'isnet_fp16',
           output: {
             format: 'image/png', // Need PNG for transparency
-          },
-          debug: true,
+          }
         };
         blob = await removeBackground(resizedBlob, config);
       } catch (firstError) {
         console.warn(
-          'Initial processing failed, falling back to CPU and fp16 model...',
+          'Initial processing failed, falling back to small model and CPU...',
           firstError,
         );
-        // Fallback for mobile devices that don't support WebGL UINT8 extensions
-        // or have strict GPU limitations. We force CPU and use the fp16 model.
+        // Fallback for mobile devices that don't support WebGL or have strict memory limitations. 
+        // We use the 'isnet_quint8' model which takes significantly less RAM.
         const fallbackConfig: Config = {
-          model: 'isnet_fp16',
+          model: 'isnet_quint8',
           device: 'cpu',
           output: {
             format: 'image/png',
-          },
-          debug: true,
+          }
         };
         blob = await removeBackground(resizedBlob, fallbackConfig);
       }
