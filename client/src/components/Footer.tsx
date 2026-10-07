@@ -13,8 +13,8 @@ export const Footer = () => {
         <div
           className={`flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6 ${isRemovePage ? 'border-t border-border/50 pt-6 sm:pt-8' : ''}`}
         >
-          <div className="flex items-center gap-2">
-            <Logo className="w-8 h-5 text-foreground" />
+          <div className="flex items-center gap-1">
+            <Logo className="w-7 h-7 text-foreground" />
             <span className="font-bold text-foreground text-sm tracking-tight">
               Clear<span className="text-primary">BG</span>
             </span>
