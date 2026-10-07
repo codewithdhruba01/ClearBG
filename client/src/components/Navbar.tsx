@@ -48,8 +48,8 @@ export const Navbar = () => {
         className={`${isRemovePage ? 'max-w-2xl' : 'max-w-6xl'} mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-300`}
       >
         <div className="flex justify-between items-center h-20">
-          <Link to="/" className="shrink-0 flex items-center gap-3 cursor-pointer">
-            <Logo className="w-8 h-5 text-foreground" />
+          <Link to="/" className="shrink-0 flex items-center gap-1 cursor-pointer">
+            <Logo className="w-7 h-7 text-foreground" />
             <span className="font-semibold text-lg tracking-tight text-foreground">ClearBG</span>
           </Link>
 
