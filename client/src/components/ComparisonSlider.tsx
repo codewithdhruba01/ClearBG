@@ -8,7 +8,11 @@ interface ComparisonSliderProps {
   backgroundColor?: string;
 }
 
-export const ComparisonSlider = ({ originalImage, processedImage, backgroundColor = 'transparent' }: ComparisonSliderProps) => {
+export const ComparisonSlider = ({
+  originalImage,
+  processedImage,
+  backgroundColor = 'transparent',
+}: ComparisonSliderProps) => {
   const [sliderPosition, setSliderPosition] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -78,7 +82,7 @@ export const ComparisonSlider = ({ originalImage, processedImage, backgroundColo
       }}
     >
       {/* Background/Processed Image (Bottom layer) */}
-      <div 
+      <div
         className={`absolute inset-0 w-full h-full flex items-center justify-center ${backgroundColor === 'transparent' ? 'bg-checkerboard' : ''}`}
         style={backgroundColor !== 'transparent' ? { backgroundColor } : {}}
       >

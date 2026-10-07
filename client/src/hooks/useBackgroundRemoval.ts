@@ -85,7 +85,7 @@ export const useBackgroundRemoval = () => {
           model: 'isnet_fp16',
           output: {
             format: 'image/png', // Need PNG for transparency
-          }
+          },
         };
         blob = await removeBackground(resizedBlob, config);
       } catch (firstError) {
@@ -93,14 +93,14 @@ export const useBackgroundRemoval = () => {
           'Initial processing failed, falling back to small model and CPU...',
           firstError,
         );
-        // Fallback for mobile devices that don't support WebGL or have strict memory limitations. 
+        // Fallback for mobile devices that don't support WebGL or have strict memory limitations.
         // We use the 'isnet_quint8' model which takes significantly less RAM.
         const fallbackConfig: Config = {
           model: 'isnet_quint8',
           device: 'cpu',
           output: {
             format: 'image/png',
-          }
+          },
         };
         blob = await removeBackground(resizedBlob, fallbackConfig);
       }

@@ -13,7 +13,12 @@ interface ResultActionsProps {
 
 const BG_COLORS = ['transparent', '#000000', '#ffffff', '#3b82f6', '#FFEB3B'];
 
-export const ResultActions = ({ processedImage, onReset, backgroundColor, setBackgroundColor }: ResultActionsProps) => {
+export const ResultActions = ({
+  processedImage,
+  onReset,
+  backgroundColor,
+  setBackgroundColor,
+}: ResultActionsProps) => {
   const [quality, setQuality] = useState<'low' | 'medium' | 'high'>('high');
 
   const handleDownload = async () => {
@@ -71,7 +76,9 @@ export const ResultActions = ({ processedImage, onReset, backgroundColor, setBac
               key={color}
               onClick={() => setBackgroundColor(color)}
               className={`w-8 h-8 rounded-full border-2 transition-transform ${
-                backgroundColor === color ? 'border-primary scale-110 shadow-md' : 'border-border/40 hover:scale-105'
+                backgroundColor === color
+                  ? 'border-primary scale-110 shadow-md'
+                  : 'border-border/40 hover:scale-105'
               } ${color === 'transparent' ? 'bg-checkerboard' : ''}`}
               style={color !== 'transparent' ? { backgroundColor: color } : {}}
               title={color === 'transparent' ? 'Transparent' : color}

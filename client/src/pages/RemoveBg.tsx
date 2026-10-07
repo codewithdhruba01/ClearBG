@@ -56,8 +56,17 @@ export const RemoveBg = () => {
 
           {status === 'success' && originalImage && processedImage ? (
             <div className="flex flex-col gap-6">
-              <ComparisonSlider originalImage={originalImage} processedImage={processedImage} backgroundColor={backgroundColor} />
-              <ResultActions processedImage={processedImage} onReset={reset} backgroundColor={backgroundColor} setBackgroundColor={setBackgroundColor} />
+              <ComparisonSlider
+                originalImage={originalImage}
+                processedImage={processedImage}
+                backgroundColor={backgroundColor}
+              />
+              <ResultActions
+                processedImage={processedImage}
+                onReset={reset}
+                backgroundColor={backgroundColor}
+                setBackgroundColor={setBackgroundColor}
+              />
             </div>
           ) : null}
         </motion.div>
